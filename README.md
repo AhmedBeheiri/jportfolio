@@ -298,14 +298,14 @@ Contact form includes:
 
 ## 📝 License
 
-[Your License Here]
+[MIT License](https://choosealicense.com/licenses/mit/)
 
 ## 👤 Author
 
-[Your Name]
-- GitHub: [Your GitHub]
-- LinkedIn: [Your LinkedIn]
-- Website: [Your Website]
+[Ahmed Beheiri][https://github.com/AhmedBeheiri)
+- GitHub: [Ahmed Beheiri](https://github.com/AhmedBeheiri)
+- LinkedIn: [Ahmed Beheiri](https://linkedin.com/in/ahmed-beheiri)
+<!-- - Website: [Ahmed Beheiri](https://ahmed-beheiri.com) -->
 
 ## 🤝 Contributing
 
