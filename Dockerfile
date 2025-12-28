@@ -29,7 +29,7 @@ ENV role=monolith
 RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*
 
 # Copy runtime dependencies
-COPY --from=build /runtime/ /
+# (Skipped /runtime/ copy as 'dart compile exe' produces self-contained binary)
 
 # Set working directory for the runtime
 WORKDIR /app
