@@ -37,6 +37,8 @@
     </style>
 </head>
 <body>
+    <input type="hidden" id="globalApiUrl" value="{{apiUrl}}" />
+    
     <div class="container">
         <a href="/admin" class="back-link">← Back to Dashboard</a>
         <div class="header">
@@ -128,7 +130,7 @@
         
         async function loadWorkExperience() {
             try {
-                const response = await fetch('{{{apiUrl}}}/content/getWorkExperience', {
+                const response = await fetch(document.getElementById('globalApiUrl').value + '/content/getWorkExperience', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({})
@@ -170,7 +172,7 @@
             if (!confirm('Are you sure you want to delete this work experience?')) return;
             
             try {
-                await fetch('{{{apiUrl}}}/content/deleteWorkExperience', {
+                await fetch(document.getElementById('globalApiUrl').value + '/content/deleteWorkExperience', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({id: id})
@@ -208,7 +210,7 @@
             
             try {
                 const endpoint = workId ? 'updateWorkExperience' : 'addWorkExperience';
-                await fetch(`{{{apiUrl}}}/content/${endpoint}`, {
+                await fetch(`${document.getElementById('globalApiUrl').value}/content/${endpoint}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({work: workData})

@@ -72,6 +72,8 @@
     </style>
   </head>
   <body>
+    <input type="hidden" id="globalApiUrl" value="{{apiUrl}}" />
+    
     <div class="login-card">
       <h1>Admin Login</h1>
       <div class="info">Please use your admin account credentials</div>
@@ -102,10 +104,10 @@
 
           try {
             // DEBUG: Print the rendered API URL
-            console.log("Target API URL:", "{{{{apiUrl}}}}");
+            
 
             const response = await fetch(
-              "{{{{apiUrl}}}}/adminLogin/authenticate",
+              document.getElementById('globalApiUrl').value + "/adminLogin/authenticate",
               {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },

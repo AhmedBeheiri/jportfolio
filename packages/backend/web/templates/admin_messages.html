@@ -30,6 +30,8 @@
     </style>
 </head>
 <body>
+    <input type="hidden" id="globalApiUrl" value="{{apiUrl}}" />
+    
     <div class="container">
         <a href="/admin" class="back-link">← Back to Dashboard</a>
         <h1>Contact Messages</h1>
@@ -60,7 +62,7 @@
 
     <script>
         async function loadMessages() {
-            const response = await fetch('{{{apiUrl}}}/contact/getMessages', {
+            const response = await fetch(document.getElementById('globalApiUrl').value + '/contact/getMessages', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({})
