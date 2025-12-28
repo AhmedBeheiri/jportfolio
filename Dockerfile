@@ -53,8 +53,5 @@ EXPOSE 8082
 # Make entrypoint executable
 RUN chmod +x deploy/docker-entrypoint.sh
 
-# Define the entrypoint command
-ENTRYPOINT ["deploy/docker-entrypoint.sh"]
-
-# Arguments passed to the entrypoint
-CMD ["./server", "--mode=production", "--server-id=default", "--logging=normal", "--role=monolith"]
+# Define command to run the script and then the server
+CMD ["/bin/bash", "-c", "./deploy/docker-entrypoint.sh ./server --mode=production --server-id=default --logging=normal --role=monolith"]
