@@ -302,7 +302,7 @@ Contact form includes:
 
 ## 👤 Author
 
-[Ahmed Beheiri][https://github.com/AhmedBeheiri)
+- Ahmed Beheiri
 - GitHub: [Ahmed Beheiri](https://github.com/AhmedBeheiri)
 - LinkedIn: [Ahmed Beheiri](https://linkedin.com/in/ahmed-beheiri)
 <!-- - Website: [Ahmed Beheiri](https://ahmed-beheiri.com) -->
