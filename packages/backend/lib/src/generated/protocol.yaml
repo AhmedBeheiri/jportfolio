@@ -1,0 +1,39 @@
+emailIdp:
+  - login:
+  - startRegistration:
+  - verifyRegistrationCode:
+  - finishRegistration:
+  - startPasswordReset:
+  - verifyPasswordResetCode:
+  - finishPasswordReset:
+jwtRefresh:
+  - refreshAccessToken:
+adminLogin:
+  - authenticate:
+contact:
+  - sendMessage:
+  - getMessages:
+content:
+  - getAbout:
+  - updateAbout:
+  - getWorkExperience:
+  - addWorkExperience:
+  - updateWorkExperience:
+  - deleteWorkExperience:
+  - getTechStack:
+  - addTechStack:
+  - updateTechStack:
+  - deleteTechStack:
+  - getSocialLinks:
+  - addSocialLink:
+  - updateSocialLink:
+  - deleteSocialLink:
+  - getProjects:
+  - addProject:
+  - updateProject:
+  - deleteProject:
+setup:
+  - createAdminUser:
+  - resetAdminUser:
+greeting:
+  - hello:

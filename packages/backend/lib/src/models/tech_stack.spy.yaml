@@ -1,0 +1,6 @@
+class: TechStack
+table: tech_stacks
+fields:
+  name: String
+  icon: String
+  description: String

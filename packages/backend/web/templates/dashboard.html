@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        h1 { font-size: 2.5rem; margin-bottom: 1rem; color: #f1f5f9; }
+        .welcome-text { font-size: 1.25rem; color: #94a3b8; margin-bottom: 3rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .card { background: #1e293b; padding: 1.5rem; border-radius: 0.75rem; border: 1px solid #334155; transition: all 0.3s; }
+        .card:hover { border-color: #3b82f6; transform: translateY(-2px); }
+        .card-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; color: #f1f5f9; }
+        .card-link { color: #3b82f6; text-decoration: none; font-weight: 500; }
+        .card-link:hover { text-decoration: underline; }
+        .logout { padding: 0.75rem 1.5rem; background: #ef4444; color: white; border: none; border-radius: 0.5rem; cursor: pointer; font-weight: 600; text-decoration: none; display: inline-block; margin-top: 2rem; }
+        .logout:hover { background: #dc2626; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Portfolio Admin</h1>
+        <p class="welcome-text">Welcome back! Manage your portfolio content below.</p>
+        
+        <div class="grid">
+            <div class="card">
+                <div class="card-title">About Me</div>
+                <p style="color: #94a3b8; margin-bottom: 1rem;">Edit your personal information</p>
+                <a href="/admin/about" class="card-link">Edit →</a>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Tech Stack</div>
+                <p style="color: #94a3b8; margin-bottom: 1rem;">Manage your technologies</p>
+                <a href="/admin/tech" class="card-link">Manage →</a>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Work Experience</div>
+                <p style="color: #94a3b8; margin-bottom: 1rem;">Update your work history</p>
+                <a href="/admin/work" class="card-link">Manage →</a>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Projects</div>
+                <p style="color: #94a3b8; margin-bottom: 1rem;">Showcase your work</p>
+                <a href="/admin/projects" class="card-link">Manage →</a>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Social Links</div>
+                <p style="color: #94a3b8; margin-bottom: 1rem;">Manage social profiles</p>
+                <a href="/admin/social" class="card-link">Manage →</a>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Contact Messages</div>
+                <p style="color: #94a3b8; margin-bottom: 1rem;">View submitted messages</p>
+                <a href="/admin/messages" class="card-link">View →</a>
+            </div>
+        </div>
+        
+        <a href="/admin/logout" class="logout">Logout</a>
+    </div>
+</body>
+</html>

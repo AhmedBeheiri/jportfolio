@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit About - Admin</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f172a; color: #e2e8f0; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        h1 { font-size: 2rem; margin-bottom: 2rem; color: #f1f5f9; }
+        .back-link { color: #3b82f6; text-decoration: none; margin-bottom: 1rem; display: inline-block; }
+        .back-link:hover { text-decoration: underline; }
+        .form-container { background: #1e293b; padding: 2rem; border-radius: 0.5rem; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: #f1f5f9; }
+        .form-group input, .form-group textarea { width: 100%; padding: 0.75rem; background: #0f172a; border: 1px solid #334155; border-radius: 0.25rem; color: #e2e8f0; font-family: inherit; font-size: 14px; }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #3b82f6; }
+        textarea { min-height: 100px; resize: vertical; }
+        .btn { padding: 0.75rem 1.5rem; background: #3b82f6; color: white; border: none; border-radius: 0.5rem; cursor: pointer; font-weight: 600; font-size: 16px; }
+        .btn:hover { background: #2563eb; }
+        .success { background-color: #065f46; color: #d1fae5; padding: 12px; border-radius: 0.5rem; margin-bottom: 20px; display: none; }
+        .error { background-color: #7f1d1d; color: #fecaca; padding: 12px; border-radius: 0.5rem; margin-bottom: 20px; display: none; }
+        .loading { opacity: 0.6; pointer-events: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/admin" class="back-link">← Back to Dashboard</a>
+        <h1>Edit About Me</h1>
+        <div class="success" id="successMsg">Changes saved successfully!</div>
+        <div class="error" id="errorMsg"></div>
+        
+        <div class="form-container">
+            <form id="aboutForm">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" required placeholder="e.g., Software Engineer">
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" required placeholder="Brief description about yourself"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" required placeholder="e.g., San Francisco, CA">
+            </div>
+            
+            <div class="form-group">
+                <label for="education">Education</label>
+                <input type="text" id="education" required placeholder="e.g., BS Computer Science">
+            </div>
+            
+            <div class="form-group">
+                <label for="funFact">Fun Fact (optional)</label>
+                <input type="text" id="funFact" placeholder="Something interesting about you">
+            </div>
+            
+            <div class="form-group">
+                <label for="imageUrl">Image URL</label>
+                <input type="url" id="imageUrl" required placeholder="https://...">
+            </div>
+            
+            <div class="form-group">
+                <label for="resumeUrl">Resume URL</label>
+                <input type="url" id="resumeUrl" required placeholder="https://...">
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required placeholder="your@email.com">
+            </div>
+            
+            <button type="submit" class="btn">Save Changes</button>
+        </form>
+        </div>
+    </div>
+    
+    <script>
+        const form = document.getElementById('aboutForm');
+        const successMsg = document.getElementById('successMsg');
+        const errorMsg = document.getElementById('errorMsg');
+        
+        // Load existing data
+        async function loadData() {
+            try {
+                const response = await fetch('http://localhost:8080/content/getAbout', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({})
+                });
+                
+                const data = await response.json();
+                
+                if (data) {
+                    document.getElementById('title').value = data.title || '';
+                    document.getElementById('description').value = data.description || '';
+                    document.getElementById('location').value = data.location || '';
+                    document.getElementById('education').value = data.education || '';
+                    document.getElementById('funFact').value = data.funFact || '';
+                    document.getElementById('imageUrl').value = data.imageUrl || '';
+                    document.getElementById('resumeUrl').value = data.resumeUrl || '';
+                    document.getElementById('email').value = data.email || '';
+                }
+            } catch (error) {
+                console.error('Error loading data:', error);
+                errorMsg.textContent = 'Failed to load data';
+                errorMsg.style.display = 'block';
+            }
+        }
+        
+        // Save changes
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            successMsg.style.display = 'none';
+            errorMsg.style.display = 'none';
+            form.classList.add('loading');
+            
+            try {
+                const aboutData = {
+                    title: document.getElementById('title').value,
+                    description: document.getElementById('description').value,
+                    location: document.getElementById('location').value,
+                    education: document.getElementById('education').value,
+                    funFact: document.getElementById('funFact').value || null,
+                    imageUrl: document.getElementById('imageUrl').value,
+                    resumeUrl: document.getElementById('resumeUrl').value,
+                    email: document.getElementById('email').value
+                };
+                
+                const response = await fetch('http://localhost:8080/content/updateAbout', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({about: aboutData})
+                });
+                
+                if (response.ok) {
+                    successMsg.style.display = 'block';
+                    setTimeout(() => successMsg.style.display = 'none', 3000);
+                } else {
+                    throw new Error('Failed to save');
+                }
+            } catch (error) {
+                console.error('Error saving:', error);
+                errorMsg.textContent = 'Failed to save changes. Please try again.';
+                errorMsg.style.display = 'block';
+            } finally {
+                form.classList.remove('loading');
+            }
+        });
+        
+        // Load data on page load
+        loadData();
+    </script>
+</body>
+</html>

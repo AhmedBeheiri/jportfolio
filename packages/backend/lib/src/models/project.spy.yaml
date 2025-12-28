@@ -1,0 +1,13 @@
+class: Project
+table: projects
+fields:
+  title: String
+  description: String
+  imageUrl: String
+  badge: String
+  badgeIcon: String
+  tags: List<String>
+  secondaryActionText: String?
+  secondaryActionUrl: String?
+  secondaryActionIcon: String?
+  workedAt: WorkExperience?

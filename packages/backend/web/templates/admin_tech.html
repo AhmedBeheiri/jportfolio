@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tech Stack - Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.1.0/css/all.min.css" integrity="sha512-10/jx0LczTgmPSyS5W8VTWXBkpN88K/4uR6EIkXvRdx8AOGAK0CFLrz2b9RcMC3q9T1YQHT8g5KPqSKlC8P4rA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f172a; color: #e2e8f0; }
+      .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+      h1 { font-size: 2rem; margin-bottom: 2rem; color: #f1f5f9; }
+      .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+      .back-link { color: #3b82f6; text-decoration: none; margin-bottom: 1rem; display: inline-block; }
+      .back-link:hover { text-decoration: underline; }
+      button { padding: 0.75rem 1.5rem; background: #3b82f6; color: white; border: none; border-radius: 0.5rem; cursor: pointer; font-weight: 600; }
+      button:hover { background: #2563eb; }
+      button.delete { background: #ef4444; }
+      button.delete:hover { background: #dc2626; }
+      button.edit { background: #3b82f6; margin-right: 0.5rem; }
+      button.edit:hover { background: #2563eb; }
+      table { width: 100%; background: #1e293b; border-radius: 0.5rem; overflow: hidden; border-collapse: collapse; }
+      th, td { padding: 1rem; text-align: left; border-bottom: 1px solid #334155; }
+      th { background: #334155; font-weight: 600; }
+      .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); }
+      .modal.active { display: flex; align-items: center; justify-content: center; }
+      .modal-content { background: #1e293b; margin: 5% auto; padding: 2rem; border-radius: 0.5rem; width: 90%; max-width: 500px; }
+      .modal-content h2 { color: #f1f5f9; margin-bottom: 1.5rem; }
+      .form-group { margin-bottom: 1.5rem; }
+      label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
+      input, textarea { width: 100%; padding: 0.75rem; border: 1px solid #334155; border-radius: 0.25rem; box-sizing: border-box; background: #0f172a; color: #e2e8f0; }
+      input:focus, textarea:focus { outline: none; border-color: #3b82f6; }
+      textarea { min-height: 80px; resize: vertical; }
+      .success { background-color: #065f46; color: #d1fae5; padding: 12px; border-radius: 0.5rem; margin-bottom: 20px; display: none; }
+      .error { background-color: #7f1d1d; color: #fecaca; padding: 12px; border-radius: 0.5rem; margin-bottom: 20px; display: none; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <a href="/admin" class="back-link">← Back to Dashboard</a>
+      <div class="header">
+        <h1>Tech Stack</h1>
+        <button onclick="openModal()">Add New Tech</button>
+      </div>
+
+      <div class="success" id="successMsg">
+        Operation completed successfully!
+      </div>
+      <div class="error" id="errorMsg"></div>
+
+      <table id="techTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Icon</th>
+            <th>Description</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="techList">
+          <!-- Tech items will be loaded here -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Modal for Add/Edit -->
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <h2 id="modalTitle">Add Tech Stack</h2>
+        <form id="techForm">
+          <input type="hidden" id="techId" />
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" required />
+          </div>
+          <div class="form-group">
+            <label for="icon">Icon SVG Code</label>
+            <input
+              type="text"
+              id="icon"
+              required
+              placeholder="Paste SVG code here (e.g., <svg>...</svg>)"
+            />
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" required></textarea>
+          </div>
+          <button type="submit">Save</button>
+          <button type="button" onclick="closeModal()">Cancel</button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      const modal = document.getElementById("modal");
+      const techForm = document.getElementById("techForm");
+      const successMsg = document.getElementById("successMsg");
+      const errorMsg = document.getElementById("errorMsg");
+
+      function openModal(tech = null) {
+        if (tech) {
+          document.getElementById("modalTitle").textContent = "Edit Tech Stack";
+          document.getElementById("techId").value = tech.id;
+          document.getElementById("name").value = tech.name;
+          document.getElementById("icon").value = tech.icon;
+          document.getElementById("description").value = tech.description;
+        } else {
+          document.getElementById("modalTitle").textContent = "Add Tech Stack";
+          techForm.reset();
+          document.getElementById("techId").value = ""; // Clear the ID
+        }
+        modal.style.display = "block";
+      }
+
+      function closeModal() {
+        modal.style.display = "none";
+      }
+
+      async function loadTechStack() {
+        try {
+          const response = await fetch(
+            "http://localhost:8080/content/getTechStack",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({}),
+            }
+          );
+
+          const data = await response.json();
+          const tbody = document.getElementById("techList");
+          tbody.innerHTML = "";
+
+          data.forEach((tech) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                        <td>${tech.name}</td>
+                        <td>${tech.icon}</td>
+                        <td>${tech.description}</td>
+                        <td>
+                            <button class="edit" onclick='editTech(${JSON.stringify(
+                              tech
+                            )})'>Edit</button>
+                            <button class="delete" onclick="deleteTech(${
+                              tech.id
+                            })">Delete</button>
+                        </td>
+                    `;
+            tbody.appendChild(row);
+          });
+        } catch (error) {
+          console.error("Error loading tech stack:", error);
+          showError("Failed to load tech stack");
+        }
+      }
+
+      function editTech(tech) {
+        openModal(tech);
+      }
+
+      async function deleteTech(id) {
+        if (!confirm("Are you sure you want to delete this tech item?")) return;
+
+        try {
+          await fetch("http://localhost:8080/content/deleteTechStack", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id: id }),
+          });
+
+          showSuccess("Tech item deleted successfully");
+          loadTechStack();
+        } catch (error) {
+          console.error("Error deleting tech:", error);
+          showError("Failed to delete tech item");
+        }
+      }
+
+      techForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const techId = document.getElementById("techId").value;
+        const techData = {
+          name: document.getElementById("name").value,
+          icon: document.getElementById("icon").value,
+          description: document.getElementById("description").value,
+        };
+
+        if (techId) {
+          techData.id = parseInt(techId);
+        }
+
+        try {
+          const endpoint = techId ? "updateTechStack" : "addTechStack";
+          await fetch(`http://localhost:8080/content/${endpoint}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ tech: techData }),
+          });
+
+          showSuccess(techId ? "Tech item updated" : "Tech item added");
+          closeModal();
+          loadTechStack();
+        } catch (error) {
+          console.error("Error saving tech:", error);
+          showError("Failed to save tech item");
+        }
+      });
+
+      function showSuccess(message) {
+        successMsg.textContent = message;
+        successMsg.style.display = "block";
+        setTimeout(() => (successMsg.style.display = "none"), 3000);
+      }
+
+      function showError(message) {
+        errorMsg.textContent = message;
+        errorMsg.style.display = "block";
+      }
+
+      // Load data on page load
+      loadTechStack();
+    </script>
+  </body>
+</html>

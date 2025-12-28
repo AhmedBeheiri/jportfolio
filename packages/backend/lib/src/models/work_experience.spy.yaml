@@ -1,0 +1,11 @@
+class: WorkExperience
+table: work_experience
+fields:
+  companyName: String
+  role: String
+  start: DateTime
+  end: DateTime?
+  description: String
+  imageUrl: String
+  skills: List<String>
+  link: String?

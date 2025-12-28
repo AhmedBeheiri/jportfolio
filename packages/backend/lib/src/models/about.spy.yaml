@@ -1,0 +1,11 @@
+class: About
+table: about
+fields:
+  title: String
+  description: String
+  location: String
+  education: String
+  funFact: String?
+  imageUrl: String
+  resumeUrl: String
+  email: String

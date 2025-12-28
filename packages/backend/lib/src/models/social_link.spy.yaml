@@ -1,0 +1,6 @@
+class: SocialLink
+table: social_links
+fields:
+  platform: String
+  url: String
+  icon: String

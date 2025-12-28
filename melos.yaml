@@ -1,0 +1,6 @@
+name: jportfolio
+
+packages:
+  - apps/*
+  - packages/*
+
