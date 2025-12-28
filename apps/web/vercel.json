@@ -1,7 +1,7 @@
 {
     "version": 2,
     "buildCommand": "./tool/vercel_build.sh",
-    "outputDirectory": "build/jaspr/web",
+    "outputDirectory": "build/jaspr",
     "installCommand": "echo 'Skipping default install'",
     "framework": null,
     "regions": [
