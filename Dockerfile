@@ -14,7 +14,9 @@ COPY packages/backend packages/backend
 
 # Build the server executable
 WORKDIR /app/packages/backend
+ARG CACHE_BUST=1
 RUN dart compile exe bin/main.dart -o bin/server
+RUN dart compile exe bin/create_admin.dart -o bin/create_admin
 
 # Final stage
 FROM debian:bookworm-slim
@@ -37,6 +39,7 @@ WORKDIR /app
 # Copy compiled server and resources
 # We maintain the structure expected by the server relative to the working directory
 COPY --from=build /app/packages/backend/bin/server server
+COPY --from=build /app/packages/backend/bin/create_admin create_admin
 COPY --from=build /app/packages/backend/config/ config/
 COPY --from=build /app/packages/backend/web/ web/
 COPY --from=build /app/packages/backend/migrations/ migrations/
