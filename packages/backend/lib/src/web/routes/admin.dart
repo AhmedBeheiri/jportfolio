@@ -2,11 +2,11 @@
 import 'package:serverpod/serverpod.dart';
 
 class LoginPageWidget extends TemplateWidget {
-  LoginPageWidget() : super(name: 'login');
+  LoginPageWidget({required String apiUrl}) : super(name: 'login', values: {'apiUrl': apiUrl});
 }
 
 class DashboardPageWidget extends TemplateWidget {
-  DashboardPageWidget() : super(name: 'dashboard');
+  DashboardPageWidget({required String apiUrl}) : super(name: 'dashboard', values: {'apiUrl': apiUrl});
 }
 
 class AdminRoute extends WidgetRoute {
@@ -34,10 +34,13 @@ class AdminRoute extends WidgetRoute {
       
       print('DEBUG: AdminRoute authKey: $authKey');
 
+      final config = Serverpod.instance.config;
+      final apiUrl = Uri(scheme: config.apiServer.publicScheme, host: config.apiServer.publicHost, port: config.apiServer.publicPort).toString();
+
       if (authKey == null || authKey.isEmpty) {
-        return LoginPageWidget();
+        return LoginPageWidget(apiUrl: apiUrl);
       } else {
-        return DashboardPageWidget();
+        return DashboardPageWidget(apiUrl: apiUrl);
       }
     } catch (e, stack) {
       print('ERROR in AdminRoute: $e');
@@ -46,3 +49,5 @@ class AdminRoute extends WidgetRoute {
     }
   }
 }
+
+

@@ -2,7 +2,7 @@
 import 'package:serverpod/serverpod.dart';
 
 class AdminWorkWidget extends TemplateWidget {
-  AdminWorkWidget() : super(name: 'admin_work');
+  AdminWorkWidget({required String apiUrl}) : super(name: 'admin_work', values: {'apiUrl': apiUrl});
 }
 
 class AdminWorkRoute extends WidgetRoute {
@@ -35,7 +35,9 @@ class AdminWorkRoute extends WidgetRoute {
       }
 
       // Return the admin work page
-      return AdminWorkWidget();
+      final config = Serverpod.instance.config;
+      final apiUrl = Uri(scheme: config.apiServer.publicScheme, host: config.apiServer.publicHost, port: config.apiServer.publicPort).toString();
+      return AdminWorkWidget(apiUrl: apiUrl);
     } catch (e, stack) {
       print('ERROR in AdminWorkRoute: $e');
       print(stack);

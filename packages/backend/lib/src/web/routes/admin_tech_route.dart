@@ -2,7 +2,7 @@
 import 'package:serverpod/serverpod.dart';
 
 class AdminTechWidget extends TemplateWidget {
-  AdminTechWidget() : super(name: 'admin_tech');
+  AdminTechWidget({required String apiUrl}) : super(name: 'admin_tech', values: {'apiUrl': apiUrl});
 }
 
 class AdminTechRoute extends WidgetRoute {
@@ -35,7 +35,9 @@ class AdminTechRoute extends WidgetRoute {
       }
 
       // Return the admin tech page
-      return AdminTechWidget();
+      final config = Serverpod.instance.config;
+      final apiUrl = Uri(scheme: config.apiServer.publicScheme, host: config.apiServer.publicHost, port: config.apiServer.publicPort).toString();
+      return AdminTechWidget(apiUrl: apiUrl);
     } catch (e, stack) {
       print('ERROR in AdminTechRoute: $e');
       print(stack);

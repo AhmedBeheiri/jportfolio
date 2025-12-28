@@ -2,7 +2,7 @@
 import 'package:serverpod/serverpod.dart';
 
 class AdminProjectsWidget extends TemplateWidget {
-  AdminProjectsWidget() : super(name: 'admin_projects');
+  AdminProjectsWidget({required String apiUrl}) : super(name: 'admin_projects', values: {'apiUrl': apiUrl});
 }
 
 class AdminProjectsRoute extends WidgetRoute {
@@ -35,7 +35,9 @@ class AdminProjectsRoute extends WidgetRoute {
       }
 
       // Return the admin projects page
-      return AdminProjectsWidget();
+      final config = Serverpod.instance.config;
+      final apiUrl = Uri(scheme: config.apiServer.publicScheme, host: config.apiServer.publicHost, port: config.apiServer.publicPort).toString();
+      return AdminProjectsWidget(apiUrl: apiUrl);
     } catch (e, stack) {
       print('ERROR in AdminProjectsRoute: $e');
       print(stack);

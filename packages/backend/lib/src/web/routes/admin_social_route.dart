@@ -2,7 +2,7 @@
 import 'package:serverpod/serverpod.dart';
 
 class AdminSocialWidget extends TemplateWidget {
-  AdminSocialWidget() : super(name: 'admin_social');
+  AdminSocialWidget({required String apiUrl}) : super(name: 'admin_social', values: {'apiUrl': apiUrl});
 }
 
 class AdminSocialRoute extends WidgetRoute {
@@ -35,7 +35,9 @@ class AdminSocialRoute extends WidgetRoute {
       }
 
       // Return the admin social links page
-      return AdminSocialWidget();
+      final config = Serverpod.instance.config;
+      final apiUrl = Uri(scheme: config.apiServer.publicScheme, host: config.apiServer.publicHost, port: config.apiServer.publicPort).toString();
+      return AdminSocialWidget(apiUrl: apiUrl);
     } catch (e, stack) {
       print('ERROR in AdminSocialRoute: $e');
       print(stack);

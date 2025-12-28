@@ -84,7 +84,7 @@
         // Load existing data
         async function loadData() {
             try {
-                const response = await fetch('http://localhost:8080/content/getAbout', {
+                const response = await fetch('{{apiUrl}}/content/getAbout', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({})
@@ -128,7 +128,7 @@
                     email: document.getElementById('email').value
                 };
                 
-                const response = await fetch('http://localhost:8080/content/updateAbout', {
+                const response = await fetch('{{apiUrl}}/content/updateAbout', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({about: aboutData})

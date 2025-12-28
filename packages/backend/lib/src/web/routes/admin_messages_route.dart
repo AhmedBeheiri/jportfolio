@@ -2,7 +2,7 @@
 import 'package:serverpod/serverpod.dart';
 
 class AdminMessagesWidget extends TemplateWidget {
-  AdminMessagesWidget() : super(name: 'admin_messages');
+  AdminMessagesWidget({required String apiUrl}) : super(name: 'admin_messages', values: {'apiUrl': apiUrl});
 }
 
 class AdminMessagesRoute extends WidgetRoute {
@@ -35,7 +35,9 @@ class AdminMessagesRoute extends WidgetRoute {
       }
 
       // Return the admin messages page
-      return AdminMessagesWidget();
+      final config = Serverpod.instance.config;
+      final apiUrl = Uri(scheme: config.apiServer.publicScheme, host: config.apiServer.publicHost, port: config.apiServer.publicPort).toString();
+      return AdminMessagesWidget(apiUrl: apiUrl);
     } catch (e, stack) {
       print('ERROR in AdminMessagesRoute: $e');
       print(stack);

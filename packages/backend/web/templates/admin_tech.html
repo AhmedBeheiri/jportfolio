@@ -118,7 +118,7 @@
       async function loadTechStack() {
         try {
           const response = await fetch(
-            "http://localhost:8080/content/getTechStack",
+            "{{apiUrl}}/content/getTechStack",
             {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -161,7 +161,7 @@
         if (!confirm("Are you sure you want to delete this tech item?")) return;
 
         try {
-          await fetch("http://localhost:8080/content/deleteTechStack", {
+          await fetch("{{apiUrl}}/content/deleteTechStack", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ id: id }),
@@ -191,7 +191,7 @@
 
         try {
           const endpoint = techId ? "updateTechStack" : "addTechStack";
-          await fetch(`http://localhost:8080/content/${endpoint}`, {
+          await fetch(`{{apiUrl}}/content/${endpoint}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ tech: techData }),
