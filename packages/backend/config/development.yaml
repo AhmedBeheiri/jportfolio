@@ -33,7 +33,7 @@ database:
   port: 8090
   name: backend
   user: postgres
-  #requireSsl: true # defaults to false
+  requireSsl: false # defaults to false
   #isUnixSocket: true # defaults to false
   #maxConnectionCount: 10 # Defaults to 10, a negative or null value removes the limit
 
