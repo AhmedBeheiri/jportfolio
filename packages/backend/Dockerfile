@@ -6,6 +6,7 @@ COPY . .
 # Install dependencies and compile the server executable
 RUN dart pub get
 RUN dart compile exe bin/main.dart -o bin/server
+RUN dart compile exe bin/create_admin.dart -o bin/create_admin
 
 # Final stage
 # Using debian:bookworm-slim as it creates a smaller and more secure image than full debian,
@@ -26,6 +27,7 @@ COPY --from=build /runtime/ /
 
 # Copy compiled server executable
 COPY --from=build /app/bin/server server
+COPY --from=build /app/bin/create_admin create_admin
 
 # Copy configuration files and resources
 COPY --from=build /app/config/ config/
