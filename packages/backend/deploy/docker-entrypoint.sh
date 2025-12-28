@@ -68,7 +68,7 @@ database:
   port: ${DB_PORT}
   name: ${DB_NAME}
   user: ${DB_USER}
-  requireSsl: true
+  requireSsl: ${DB_REQUIRE_SSL:-true}
 
 redis:
   enabled: false
