@@ -1,0 +1,16 @@
+{
+    "version": 2,
+    "buildCommand": "./tool/vercel_build.sh",
+    "outputDirectory": "build/jaspr/web",
+    "installCommand": "echo 'Skipping default install'",
+    "framework": null,
+    "regions": [
+        "sin1"
+    ],
+    "rewrites": [
+        {
+            "source": "/(.*)",
+            "destination": "/index.html"
+        }
+    ]
+}

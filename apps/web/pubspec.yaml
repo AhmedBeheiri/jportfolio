@@ -23,5 +23,5 @@ dev_dependencies:
   lints: ^5.0.0
 
 jaspr:
-  mode: server
+  mode: static
   port: 3000

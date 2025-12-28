@@ -79,24 +79,24 @@ class _AboutSectionState extends State<AboutSection> {
        ]),
     ];
 
-    if (about.resumeUrl.isNotEmpty) {
-      contentChildren.add(
-         div(classes: 'mt-8', [
-           a(
-             href: about.resumeUrl,
-             // Minimal button
-             [Component.text('Download Resume')]
-           ),
-         ])
-      );
-    }
+    // if (about.resumeUrl.isNotEmpty) {
+    //   contentChildren.add(
+    //      div(classes: 'mt-8', [
+    //        a(
+    //          href: about.resumeUrl,
+    //          // Minimal button
+    //          [Component.text('Download Resume')]
+    //        ),
+    //      ])
+    //   );
+    // }
 
     return section(
       id: 'about',
       classes: 'py-20 relative overflow-hidden',
       [
         div(classes: 'mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 relative z-10', [
-           div(classes: 'bg-white dark:bg-card-dark rounded-3xl p-8 md:p-12 shadow-2xl border border-gray-100 dark:border-gray-800 flex flex-col md:flex-row gap-10 items-center', [
+           div(classes: 'bg-white dark:bg-card-dark rounded-3xl p-8 md:p-12 shadow-2xl border border-gray-100 dark:border-gray-800 flex flex-col md:flex-row gap-10 ', [
              // Image Placeholder
              div(classes: 'shrink-0 relative', [
                 div(classes: 'w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-white dark:border-gray-700 shadow-lg relative z-10', [
