@@ -4,9 +4,11 @@ WORKDIR /app
 COPY . .
 
 # Install dependencies and compile the server executable
+ARG CACHE_BUST=1
 RUN dart pub get
 RUN dart compile exe bin/main.dart -o bin/server
 RUN dart compile exe bin/create_admin.dart -o bin/create_admin
+RUN ls -la bin/
 
 # Final stage
 # Using debian:bookworm-slim as it creates a smaller and more secure image than full debian,
