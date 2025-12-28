@@ -137,7 +137,7 @@
         
         async function loadWorkExperiences() {
             try {
-                const response = await fetch('{{apiUrl}}/content/getWorkExperience', {
+                const response = await fetch('{{{apiUrl}}}/content/getWorkExperience', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({})
@@ -185,7 +185,7 @@
         
         async function loadProjects() {
             try {
-                const response = await fetch('{{apiUrl}}/content/getProjects', {
+                const response = await fetch('{{{apiUrl}}}/content/getProjects', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({})
@@ -229,7 +229,7 @@
             if (!confirm('Are you sure you want to delete this project?')) return;
             
             try {
-                await fetch('{{apiUrl}}/content/deleteProject', {
+                await fetch('{{{apiUrl}}}/content/deleteProject', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({id: id})
@@ -277,7 +277,7 @@
             
             try {
                 const endpoint = projectId ? 'updateProject' : 'addProject';
-                await fetch(`{{apiUrl}}/content/${endpoint}`, {
+                await fetch(`{{{apiUrl}}}/content/${endpoint}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({project: projectData})

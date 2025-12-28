@@ -102,7 +102,7 @@
         }
 
         async function loadLinks() {
-            const response = await fetch('{{apiUrl}}/content/getSocialLinks', {
+            const response = await fetch('{{{apiUrl}}}/content/getSocialLinks', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({})
@@ -148,7 +148,7 @@
 
         async function deleteLink(id) {
             if (!confirm('Delete this social link?')) return;
-            await fetch('{{apiUrl}}/content/deleteSocialLink', {
+            await fetch('{{{apiUrl}}}/content/deleteSocialLink', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id })
@@ -167,13 +167,13 @@
             
             if (id) {
                 data.id = parseInt(id);
-                await fetch('{{apiUrl}}/content/updateSocialLink', {
+                await fetch('{{{apiUrl}}}/content/updateSocialLink', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ link: data })
                 });
             } else {
-                await fetch('{{apiUrl}}/content/addSocialLink', {
+                await fetch('{{{apiUrl}}}/content/addSocialLink', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ link: data })

@@ -90,39 +90,46 @@
     </div>
     <script>
       // Handle form submission via AJAX to keep user on the same page
-      document.getElementById('loginForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const errorMsg = document.getElementById('errorMsg');
-        errorMsg.style.display = 'none';
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const errorMsg = document.getElementById("errorMsg");
+          errorMsg.style.display = "none";
 
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
 
-        try {
-          
-          const response = await fetch('{{apiUrl}}/adminLogin/authenticate', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-          });
+          try {
+            // DEBUG: Print the rendered API URL
+            console.log("Target API URL:", "{{{{apiUrl}}}}");
 
-          const data = await response.json();
-          
-          if (data && typeof data === 'string') {
-            // Success - got auth key
-            document.cookie = `serverpod_auth=${data}; path=/; SameSite=Lax`;
-            // Redirect to admin page (which will show dashboard)
-            window.location.href = '/admin';
-          } else {
-            errorMsg.textContent = 'Invalid email or password';
-            errorMsg.style.display = 'block';
+            const response = await fetch(
+              "{{{{apiUrl}}}}/adminLogin/authenticate",
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password }),
+              }
+            );
+
+            const data = await response.json();
+
+            if (data && typeof data === "string") {
+              // Success - got auth key
+              document.cookie = `serverpod_auth=${data}; path=/; SameSite=Lax`;
+              // Redirect to admin page (which will show dashboard)
+              window.location.href = "/admin";
+            } else {
+              errorMsg.textContent = "Invalid email or password";
+              errorMsg.style.display = "block";
+            }
+          } catch (error) {
+            console.error(error);
+            errorMsg.textContent = "Login failed. Please try again.";
+            errorMsg.style.display = "block";
           }
-        } catch (error) {
-          console.error(error);
-          errorMsg.textContent = 'Login failed. Please try again.';
-          errorMsg.style.display = 'block';
-        }
-      });
+        });
     </script>
   </body>
 </html>
